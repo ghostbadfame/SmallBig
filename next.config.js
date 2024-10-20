@@ -4,7 +4,11 @@ const nextConfig = {
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
   },
   images: {
-    domains: ['checkout.razorpay.com'],
+    domains: ["checkout.razorpay.com"],
+  },
+  webpack: (config) => {
+    config.externals = [...config.externals, "bcrypt"];
+    return config;
   },
 };
 

@@ -3,7 +3,6 @@ import mongoose from 'mongoose';
 
 // Define the Lead interface
 export interface Lead {
-  _id: mongoose.Types.ObjectId;
   firstName: string;
   lastName: string;
   companyName: string;

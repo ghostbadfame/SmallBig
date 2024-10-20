@@ -10,8 +10,7 @@ const razorpay = new Razorpay({
 });
 
 export async function POST(request: NextRequest) {
-  const session = await getServerSession();
-
+  const session = await getServerSession()
   if (!session) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }

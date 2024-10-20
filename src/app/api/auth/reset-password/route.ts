@@ -10,6 +10,10 @@ connect();
 
 export async function POST(request: NextRequest) {
   const payload: ResetPasswordPayload = await request.json();
+
+  // TODO: You have to add validation here to check both passwords are same
+
+  // * Decrypt string
   const crypter = new Cryptr(Env.SECRET_KEY);
   const email = crypter.decrypt(payload.email);
 

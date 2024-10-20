@@ -1,11 +1,12 @@
 "use client";
 
-
 import { redirect } from "next/navigation";
 import { authOptions } from "@/app/api/auth/[...nextauth]/options";
 import { getServerSession } from "next-auth";
 import SignoutButton from "@/components/SignoutButton";
 import LeadList from "@/components/LeadList";
+import ErrorBoundary  from "@/components/ErrorBoundary";
+import Error from "./error";
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
@@ -22,7 +23,10 @@ export default async function Home() {
           <h1 className="text-3xl font-bold">Lead Dashboard</h1>
           <SignoutButton />
         </div>
+        <ErrorBoundary fallback={<Error />}>
         <LeadList/>
+        </ErrorBoundary>
+       
         
         
         <p>Welcome to your dashboard. Click the button above to view your lead list.</p>

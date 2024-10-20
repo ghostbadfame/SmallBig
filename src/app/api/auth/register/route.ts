@@ -20,7 +20,6 @@ export async function POST(request: NextRequest) {
     vine.errorReporter = () => new ErrorReporter();
     const validator = vine.compile(registerSchema);
     const output = await validator.validate(body);
- 
     try {
       const user = await User.findOne({ email: output.email });
       if (user) {
@@ -34,7 +33,7 @@ export async function POST(request: NextRequest) {
           { status: 200 }
         );
       } else {
-        //To Hash the password
+        // * To Hash the password
         const salt = bcrypt.genSaltSync(10);
         output.password = bcrypt.hashSync(output.password, salt);
         await User.create(output);

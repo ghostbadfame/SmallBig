@@ -1,13 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
-import { authOptions } from '../auth/[...nextauth]/options';
 import LeadModel, { Lead } from '@/models/Leads';
 import { connect } from '@/database/mongo.config';
 
 
 // Function to connect to the database and fetch leads
 const fetchLeadsFromMongoDB = async (page: number, pageSize: number): Promise<{ leads: Lead[]; total: number }> => {
-  await connect(); // Ensure the database connection is established
+  connect(); // Ensure the database connection is established
 
   try {
     // Fetch total leads count
@@ -27,7 +26,7 @@ const fetchLeadsFromMongoDB = async (page: number, pageSize: number): Promise<{ 
 };
 
 export async function GET(request: NextRequest) {
-  const session = await getServerSession(authOptions);
+  const session = await getServerSession();
 
   if (!session) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });

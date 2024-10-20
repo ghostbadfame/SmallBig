@@ -8,6 +8,8 @@ import { signIn } from "next-auth/react";
 import Image from "next/image";
 import { registerErrorType } from "@/types";
 
+
+
 export default function SignUp() {
   const router = useRouter();
 

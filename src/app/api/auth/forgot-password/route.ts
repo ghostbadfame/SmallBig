@@ -14,6 +14,7 @@ connect();
 export async function POST(request: NextRequest) {
   const payload: ForgotPasswordPayload = await request.json();
 
+  //Check user email first
   const user = await User.findOne({ email: payload.email });
   if (user == null) {
     return NextResponse.json({
@@ -24,7 +25,7 @@ export async function POST(request: NextRequest) {
     });
   }
 
-  // Generate random string
+  //   * Generate random string
   const randomStr = cryptoRandomString({
     length: 64,
     type: "alphanumeric",
@@ -33,7 +34,7 @@ export async function POST(request: NextRequest) {
   user.password_reset_token = randomStr;
   await user.save();
 
-  // Encrypt user email
+  // * Encrypt user email
   const crypt = new Cryptr(Env.SECRET_KEY);
   const encryptedEmail = crypt.encrypt(user.email);
 
